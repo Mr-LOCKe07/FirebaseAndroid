@@ -19,16 +19,12 @@ import com.google.firebase.storage.FirebaseStorage
 
 class productviewmodel(var navController: NavHostController, var context: Context) {
     var authRepository: AuthViewModel
-    var progress: ProgressDialog
 
     init {
         authRepository = AuthViewModel(navController, context)
         if (!authRepository.isloggedin()) {
             navController.navigate(ROUTE_LOGIN)
         }
-        progress = ProgressDialog(context)
-        progress.setTitle("Loading")
-        progress.setMessage("Please wait...")
     }
 
 
@@ -37,9 +33,7 @@ class productviewmodel(var navController: NavHostController, var context: Contex
         val productData = Product(productName, productQuantity, productPrice, id)
         val productRef = FirebaseDatabase.getInstance().getReference()
             .child("Products/$id")
-        progress.show()
         productRef.setValue(productData).addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Saving successful", Toast.LENGTH_SHORT).show()
             } else {
@@ -55,10 +49,8 @@ class productviewmodel(var navController: NavHostController, var context: Contex
     ): SnapshotStateList<Product> {
         val ref = FirebaseDatabase.getInstance().getReference().child("Products")
 
-        progress.show()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                progress.dismiss()
                 products.clear()
                 for (snap in snapshot.children) {
                     val value = snap.getValue(Product::class.java)
@@ -77,9 +69,7 @@ class productviewmodel(var navController: NavHostController, var context: Contex
     fun deleteProduct(id: String) {
         val delRef = FirebaseDatabase.getInstance().getReference()
             .child("Products/$id")
-        progress.show()
         delRef.removeValue().addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show()
             } else {
@@ -91,10 +81,8 @@ class productviewmodel(var navController: NavHostController, var context: Contex
     fun updateProduct(name: String, quantity: String, price: String, id: String) {
         val updateRef = FirebaseDatabase.getInstance().getReference()
             .child("Products/$id")
-        progress.show()
         val updateData = Product(name, quantity, price, id)
         updateRef.setValue(updateData).addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Update successful", Toast.LENGTH_SHORT).show()
             } else {
@@ -106,10 +94,8 @@ class productviewmodel(var navController: NavHostController, var context: Contex
     fun saveProductWithImage(productName:String, productQuantity:String, productPrice:String, filePath: Uri){
         val id = System.currentTimeMillis().toString()
         val storageReference = FirebaseStorage.getInstance().getReference().child("Uploads/$id")
-        progress.show()
 
         storageReference.putFile(filePath).addOnCompleteListener{
-            progress.dismiss()
             if (it.isSuccessful){
                 // Proceed to store other data into the db
                 storageReference.downloadUrl.addOnSuccessListener {
@@ -129,12 +115,10 @@ class productviewmodel(var navController: NavHostController, var context: Contex
 
 
     fun viewUploads(upload:MutableState<Upload>, uploads:SnapshotStateList<Upload>): SnapshotStateList<Upload> {
-        var ref = FirebaseDatabase.getInstance().getReference().child("Uploads")
+        val ref = FirebaseDatabase.getInstance().getReference().child("Uploads")
 
-        progress.show()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                progress.dismiss()
                 uploads.clear()
                 for (snap in snapshot.children){
                     val value = snap.getValue(Upload::class.java)

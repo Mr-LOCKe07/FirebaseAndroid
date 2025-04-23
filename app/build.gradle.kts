@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation(libs.coil.compose.v200rc01)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
