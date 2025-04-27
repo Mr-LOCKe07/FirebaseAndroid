@@ -42,6 +42,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.blaise.firebase.data.AuthViewModel
 import com.blaise.firebase.navigation.ROUTE_LOGIN
+import com.blaise.firebase.navigation.ROUTE_REGISTER
 
 
 @Composable
@@ -129,12 +130,18 @@ fun Register_Screen(navController:NavHostController) {
             fontFamily = FontFamily.Serif,
             fontSize = 20.sp)
 
-        Text(text = "Click to Login",
-            modifier = Modifier.clickable { ROUTE_LOGIN },
-            color = Color.White,
-            fontFamily = FontFamily.Serif,
-            fontSize = 25.sp,
-            fontStyle = FontStyle.Italic)
+        Button(
+            onClick = { navController.navigate(ROUTE_LOGIN) },
+            colors = ButtonDefaults.buttonColors(Color.White),
+        ) {
+            Text(
+                text = "Click to Login",
+                color = Color.Black,
+                fontFamily = FontFamily.Serif,
+                fontSize = 20.sp,
+                fontStyle = FontStyle.Italic
+            )
+        }
 
 
     }

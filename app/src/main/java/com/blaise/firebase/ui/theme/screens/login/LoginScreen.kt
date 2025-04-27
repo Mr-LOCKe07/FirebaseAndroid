@@ -53,22 +53,31 @@ fun Login_Screen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
 
-        Text(text = "Login here",
+        Text(
+            text = "Login here",
             color = Color.White,
             fontFamily = FontFamily.Monospace,
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Bold
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(value =email , onValueChange = {email=it},
-            label = { Text(text = "Enter Email",
-                color = Color.White,
-                fontFamily = FontFamily.Serif,
-                fontSize = 20.sp) },
+        OutlinedTextField(
+            value = email, onValueChange = { email = it },
+            label = {
+                Text(
+                    text = "Enter Email",
+                    color = Color.White,
+                    fontFamily = FontFamily.Serif,
+                    fontSize = 20.sp
+                )
+            },
             shape = RoundedCornerShape(16.dp),
             leadingIcon = {
-                Icon(Icons.Default.Email,
-                contentDescription = "email")
+                Icon(
+                    Icons.Default.Email,
+                    contentDescription = "email"
+                )
             },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
@@ -76,17 +85,25 @@ fun Login_Screen(navController: NavHostController) {
                 .padding(8.dp),
 
             )
-        
+
         Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(value =pass , onValueChange = {pass=it},
-            label = { Text(text = "Enter Password",
-                color = Color.White,
-                fontFamily = FontFamily.Serif,
-                fontSize = 20.sp) },
+        OutlinedTextField(
+            value = pass, onValueChange = { pass = it },
+            label = {
+                Text(
+                    text = "Enter Password",
+                    color = Color.White,
+                    fontFamily = FontFamily.Serif,
+                    fontSize = 20.sp
+                )
+            },
             shape = RoundedCornerShape(16.dp),
             leadingIcon = {
-                Icon(Icons.Default.Lock,
-                    contentDescription = "password")},
+                Icon(
+                    Icons.Default.Lock,
+                    contentDescription = "password"
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
             modifier = Modifier
                 .fillMaxWidth()
@@ -94,35 +111,49 @@ fun Login_Screen(navController: NavHostController) {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {
-            val mylogin= AuthViewModel(navController, context )
-            mylogin.login(email.text.trim(),pass.text.trim())},
+        Button(
+            onClick = {
+                val mylogin = AuthViewModel(navController, context)
+                mylogin.login(email.text.trim(), pass.text.trim())
+            },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             border = BorderStroke(2.dp, Color.White)
         ) {
-            Text(text = "Login",
+            Text(
+                text = "Login",
                 color = Color.White,
                 fontFamily = FontFamily.Serif,
-                fontSize = 20.sp)
+                fontSize = 20.sp
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Don't have account?",
+        Text(
+            text = "Don't have account?",
             color = Color.Red,
             fontFamily = FontFamily.Serif,
-            fontSize = 20.sp)
+            fontSize = 20.sp
+        )
 
-        Text(text = "Click to Register",
-            modifier = Modifier.clickable { ROUTE_REGISTER },
-            color = Color.White,
-            fontFamily = FontFamily.Serif,
-            fontSize = 25.sp,
-            fontStyle = FontStyle.Italic)
+        Button(
+            onClick = { navController.navigate(ROUTE_REGISTER) },
+            colors = ButtonDefaults.buttonColors(Color.White),
+        ) {
+            Text(
+                text = "Click to Register",
+                modifier = Modifier.clickable { ROUTE_REGISTER },
+                color = Color.Black,
+                fontFamily = FontFamily.Serif,
+                fontSize = 20.sp,
+                fontStyle = FontStyle.Italic
+            )
+        }
+    }
         
 
     }
-}
+
 
 @Preview
 @Composable
