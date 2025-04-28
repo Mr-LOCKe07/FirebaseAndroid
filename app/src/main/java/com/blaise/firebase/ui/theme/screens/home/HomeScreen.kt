@@ -73,7 +73,8 @@ fun Home_Screen(navController: NavHostController) {
             Text(text = "View Products",
                 color = Color.Black,
                 fontSize = 20.sp,
-                fontFamily = FontFamily.Serif) }
+                fontFamily = FontFamily.Serif)
+        }
 
 
     }

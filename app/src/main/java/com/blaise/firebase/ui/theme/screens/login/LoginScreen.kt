@@ -142,7 +142,6 @@ fun Login_Screen(navController: NavHostController) {
         ) {
             Text(
                 text = "Click to Register",
-                modifier = Modifier.clickable { ROUTE_REGISTER },
                 color = Color.Black,
                 fontFamily = FontFamily.Serif,
                 fontSize = 20.sp,
